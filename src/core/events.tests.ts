@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: events.tests.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-26T09:53:55-04:00
+ * @Last modified time: 2018-03-26T10:38:15-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -39,15 +39,33 @@ class DummyHasEvent
 
      it('All handlers get invoked in the correct order when event is invoked', () => {
          let source = new DummyHasEvent();
-         let handler1 = (args:DummyEventArgs) => { return; };
-         let handler2 = (args:DummyEventArgs) => { return; };
+         let handler1Called = false;
+         let handler2Called = false;
+         let handler1 = (args:DummyEventArgs) => { handler1Called =true; };
+         let handler2 = (args:DummyEventArgs) => { handler2Called=true; };
 
          source.onEventTriggered.addHandler(handler1);
          source.onEventTriggered.addHandler(handler2);
 
          source.triggerEvent();
-         expect(handler1).should.have.been.calledOnce;
-         expect(handler2).should.have.been.calledOnce;
+         expect(handler1Called).to.be.true;
+         expect(handler2Called).to.be.true;
+     });
+
+     it('Removing a handler causes it to no longer get called', () => {
+         let source = new DummyHasEvent();
+         let handler1Called = false;
+         let handler2Called = false;
+         let handler1 = (args:DummyEventArgs) => { handler1Called =true; };
+         let handler2 = (args:DummyEventArgs) => { handler2Called=true; };
+
+         source.onEventTriggered.addHandler(handler1);
+         source.onEventTriggered.addHandler(handler2);
+         source.onEventTriggered.removeHandler(handler1);
+
+         source.triggerEvent();
+         expect(handler1Called).to.be.false;
+         expect(handler2Called).to.be.true;
      });
 
 
