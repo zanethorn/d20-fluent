@@ -37,7 +37,7 @@ describe('Clonable Tests', () => {
         source.baz = 42;
         let result = source.clone();
         for (let p in result) {
-            expect((<any>source)[p]).to.not.equal(undefined);
+            expect((<any>source)[p]).to.not.be.undefined;
         }
     });
 

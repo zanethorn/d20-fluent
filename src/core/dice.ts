@@ -10,27 +10,7 @@
  */
 import { Clonable, IClonable } from './clonable';
 
-export enum ModifierType {
-    base = 0,
-    ability = 1,
-    alchemical,
-    armor,
-    circumstance,
-    competence,
-    deflection,
-    dodge,
-    enchantment,
-    insight,
-    luck,
-    morale,
-    natural_armor,
-    profane,
-    racial,
-    resistance,
-    sacred,
-    shield,
-    size
-}
+
 
 function* listModifierNames(): IterableIterator<string> {
     for (var enumMember in ModifierType) {
