@@ -5,16 +5,17 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outDir": "build",
+    "outDir": "bin",
+    "rootDir": "src",
     "strictNullChecks": true,
     "sourceMap": true,
     "declaration": true
   },
   "include": [
-    "src/**/*.ts",
-    "specs/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "bin",
   ]
 }
