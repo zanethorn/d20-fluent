@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: observable.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-26T14:50:26-04:00
+ * @Last modified time: 2018-03-26T14:54:24-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -37,7 +37,7 @@ class PropertyChangedEventArgs
     }
 }
 
-export function IsObservable<TBase extends Constructor>(Base: TBase): Constructor<IObservable & TBase> {
+export function IsObservable<TBase extends Constructor>(Base: TBase): Constructor<IObservable> & TBase {
     return class extends Base implements IObservable {
         private readonly _propertyChanged: Event<IPropertyChangedEventArgs> = new Event<IPropertyChangedEventArgs>();
 
