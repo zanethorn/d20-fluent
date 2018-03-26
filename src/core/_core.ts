@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: _core.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-26T10:33:46-04:00
+ * @Last modified time: 2018-03-26T14:01:23-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -25,13 +25,13 @@ export interface IHasName
     name: string;
 }
 
-export function HasValue<TBase extends Constructor>(Base: TBase) {
+export function HasValue<TBase extends Constructor>(Base: TBase): Constructor<IHasValue> & TBase {
     return class extends Base implements IHasValue {
         value: number = 0;
     };
 }
 
-export function HasProtectedValue<TBase extends Constructor>(Base: TBase) {
+export function HasProtectedValue<TBase extends Constructor>(Base: TBase): Constructor<IHasValue> & TBase {
     return class extends Base implements IHasValue {
         protected _value: number = 0;
         get value(): number {
@@ -43,7 +43,7 @@ export function HasProtectedValue<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export function HasReadonlyValue<TBase extends Constructor>(Base: TBase) {
+export function HasReadonlyValue<TBase extends Constructor>(Base: TBase): Constructor<IHasValue> & TBase {
     return class extends Base implements IHasValue {
         constructor(private readonly _value:number, ...args: any[]) {
             super(...args);
@@ -58,13 +58,13 @@ export function HasReadonlyValue<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export function HasName<TBase extends Constructor>(Base: TBase) {
+export function HasName<TBase extends Constructor>(Base: TBase): Constructor<IHasName> & TBase {
     return class extends Base implements IHasValue {
         name: string = '';
     };
 }
 
-export function HasProtectedName<TBase extends Constructor>(Base: TBase) {
+export function HasProtectedName<TBase extends Constructor>(Base: TBase): Constructor<IHasName> & TBase {
     return class extends Base implements IHasValue {
         protected _name: string = '';
         get name(): string {
@@ -76,7 +76,7 @@ export function HasProtectedName<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export function HasReadonlyName<TBase extends Constructor>(Base: TBase) {
+export function HasReadonlyName<TBase extends Constructor>(Base: TBase): Constructor<IHasName> & TBase {
     return class extends Base implements IHasValue {
         constructor(private readonly _name:string, ...args: any[]) {
             super(...args);
@@ -91,7 +91,7 @@ export function HasReadonlyName<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export function HasReadonlyType<TBase extends Constructor, TType>(Base: TBase) {
+export function HasReadonlyType<TBase extends Constructor, TType>(Base: TBase): Constructor<IHasType<TType>> & TBase {
     return class extends Base implements IHasType<TType> {
         constructor(public readonly type:TType, ...args: any[]) {
             super(...args);
