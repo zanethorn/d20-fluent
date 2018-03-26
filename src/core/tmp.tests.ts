@@ -4,14 +4,14 @@
  * @Project: d20-fluent
  * @Filename: tmp.tests.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-25T19:53:37-04:00
+ * @Last modified time: 2018-03-25T21:08:01-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 import { roll } from './dice';
- import { ModifierType } from './tmp';
- import { expect } from 'chai';
- import 'mocha';
+import { ModifierType } from './tmp';
+import { expect } from 'chai';
+import 'mocha';
 
  describe('Dice ModifierType Tests', () => {
      it('ModifierType can be merged between files', () => {
