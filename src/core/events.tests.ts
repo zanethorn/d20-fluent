@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: events.tests.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-26T10:38:15-04:00
+ * @Last modified time: 2018-03-27T14:07:56-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -44,8 +44,8 @@ class DummyHasEvent
          let handler1 = (args:DummyEventArgs) => { handler1Called =true; };
          let handler2 = (args:DummyEventArgs) => { handler2Called=true; };
 
-         source.onEventTriggered.addHandler(handler1);
-         source.onEventTriggered.addHandler(handler2);
+         source.onEventTriggered.on(handler1);
+         source.onEventTriggered.on(handler2);
 
          source.triggerEvent();
          expect(handler1Called).to.be.true;
@@ -59,9 +59,9 @@ class DummyHasEvent
          let handler1 = (args:DummyEventArgs) => { handler1Called =true; };
          let handler2 = (args:DummyEventArgs) => { handler2Called=true; };
 
-         source.onEventTriggered.addHandler(handler1);
-         source.onEventTriggered.addHandler(handler2);
-         source.onEventTriggered.removeHandler(handler1);
+         source.onEventTriggered.on(handler1);
+         source.onEventTriggered.on(handler2);
+         source.onEventTriggered.off(handler1);
 
          source.triggerEvent();
          expect(handler1Called).to.be.false;

@@ -10,62 +10,11 @@
  */
 
 
-export interface IPropertyChangedEventArgs
-    extends IEventArgs
-{
-    readonly originalValue: any;
-    readonly newValue: any;
-    readonly name: string;
-}
-
-export interface IObservable
-{
-    onPropertyChanged: IEvent<IPropertyChangedEventArgs>;
-}
 
 
 
-export enum ModifierType
-{
-    base = 0,
-    ability = 1,
-    alchemical,
-    armor,
-    circumstance,
-    competence,
-    deflection,
-    dodge,
-    enchantment,
-    insight,
-    luck,
-    morale,
-    natural_armor,
-    profane,
-    racial,
-    resistance,
-    sacred,
-    shield,
-    size
-}
 
-export interface IModifier
-    extends IHasValue, IHasType<ModifierType>
-{
-    readonly stackable: boolean;
-}
 
-export interface IHasModifiers
-{
-    modifiers(): Iterator<IModifier>;
-    addModifier(modifier:IModifier): void;
-    removeModifier(modifier:IModifier): void;
-}
-
-export interface IHasModifiedValue
-    extends IHasModifiers, IHasValue
-{
-    readonly modifiedValue: number;
-}
 
 export interface IHasScores
     extends IHasModifiers, IObservable

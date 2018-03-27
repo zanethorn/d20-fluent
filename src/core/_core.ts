@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: _core.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-26T14:01:23-04:00
+ * @Last modified time: 2018-03-27T13:42:40-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -37,7 +37,7 @@ export function HasProtectedValue<TBase extends Constructor>(Base: TBase): Const
         get value(): number {
             return this._value;
         }
-        set value(v:number):void {
+        set value(v:number) {
             throw new Error("value is readonly");
         }
     };
@@ -45,56 +45,65 @@ export function HasProtectedValue<TBase extends Constructor>(Base: TBase): Const
 
 export function HasReadonlyValue<TBase extends Constructor>(Base: TBase): Constructor<IHasValue> & TBase {
     return class extends Base implements IHasValue {
-        constructor(private readonly _value:number, ...args: any[]) {
-            super(...args);
+        private readonly _value: number;
+
+        constructor(...args: any[]) {
+            super(...args.slice(1));
+            this._value = <number>args[0];
         }
 
         get value(): number {
             return this._value;
         }
-        set value(v:number):void {
+        set value(v:number) {
             throw new Error("value is readonly");
         }
     };
 }
 
 export function HasName<TBase extends Constructor>(Base: TBase): Constructor<IHasName> & TBase {
-    return class extends Base implements IHasValue {
+    return class extends Base implements IHasName {
         name: string = '';
     };
 }
 
 export function HasProtectedName<TBase extends Constructor>(Base: TBase): Constructor<IHasName> & TBase {
-    return class extends Base implements IHasValue {
+    return class extends Base implements IHasName {
         protected _name: string = '';
         get name(): string {
             return this._name;
         }
-        set name(v:string):void {
+        set name(v:string) {
             throw new Error("name is readonly");
         }
     };
 }
 
 export function HasReadonlyName<TBase extends Constructor>(Base: TBase): Constructor<IHasName> & TBase {
-    return class extends Base implements IHasValue {
-        constructor(private readonly _name:string, ...args: any[]) {
-            super(...args);
+    return class extends Base implements IHasName {
+        private readonly _name:string;
+
+        constructor( ...args: any[]) {
+            super(...args.slice(1));
+            this._name = <string>args[0];
         }
 
         get name(): string {
             return this._name;
         }
-        set name(v:string):void {
+        set name(v:string) {
             throw new Error("name is readonly");
         }
     };
 }
 
-export function HasReadonlyType<TBase extends Constructor, TType>(Base: TBase): Constructor<IHasType<TType>> & TBase {
+export function HasReadonlyType<TBase extends Constructor, TType>(Base: TBase, Type: TType): Constructor<IHasType<TType>> & TBase {
     return class extends Base implements IHasType<TType> {
-        constructor(public readonly type:TType, ...args: any[]) {
-            super(...args);
+        public readonly type:TType
+
+        constructor(...args: any[]) {
+            super(...args.slice(1));
+            this.type = args[0];
         }
     };
 }

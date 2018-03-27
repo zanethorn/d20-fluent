@@ -4,13 +4,12 @@
  * @Project: d20-fluent
  * @Filename: dice.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-25T21:05:54-04:00
+ * @Last modified time: 2018-03-27T13:00:21-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
-import { Clonable, IClonable } from './clonable';
-
-
+import { IsClonable, IClonable, IsClonable } from './clonable';
+import './modifiers'
 
 function* listModifierNames(): IterableIterator<string> {
     for (var enumMember in ModifierType) {
@@ -91,7 +90,7 @@ class _RollModifiers
     clone: () => IClonable;
 }
 
-class RollModifiers extends Clonable(_RollModifiers){};
+class RollModifiers extends IsClonable(_RollModifiers){};
 
 class _DieRoll implements IDieRoll
 {
