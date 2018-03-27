@@ -4,12 +4,13 @@
  * @Project: d20-fluent
  * @Filename: framework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T13:28:12-04:00
+ * @Last modified time: 2018-03-27T14:46:52-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import { IEvent, IEventArgs, IHasEvents } from './core/events'
+import { IEvent, IEventArgs, IHasEvents } from './d20/framework/events'
+import { ComponentFactory, IAdventure, IDungeon } from './d20/framework/components'
 
 export interface IApplicationEventArgs
     extends IEventArgs
@@ -28,4 +29,7 @@ export interface Id20Application
 
     run(): void;
     exit(): void;
+
+    adventure: ComponentFactory<IAdventure>;
+    dungeon: ComponentFactory<IDungeon>;
 }

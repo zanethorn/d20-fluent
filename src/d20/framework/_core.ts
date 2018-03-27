@@ -10,20 +10,11 @@
  */
 import { Constructor } from './mixins';
 
-export interface IHasValue
-{
-    value: number;
-}
 
-export interface IHasType<T>
-{
-    readonly type: T;
-}
 
-export interface IHasName
-{
-    name: string;
-}
+
+
+
 
 export function HasValue<TBase extends Constructor>(Base: TBase): Constructor<IHasValue> & TBase {
     return class extends Base implements IHasValue {

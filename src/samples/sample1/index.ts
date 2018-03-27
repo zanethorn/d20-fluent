@@ -4,15 +4,15 @@
  * @Project: d20-fluent
  * @Filename: index.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-26T18:44:13-04:00
+ * @Last modified time: 2018-03-27T14:56:30-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import '../../.';
+import * as d20 from  '../../d20';
 
-export const Module =
-module("A Sample Dungeon", () => {
+export const Adventure =
+adventure("A Sample Dungeon", () => {
     dungeon("Monastery Cellars and Secret Crypts", () => {
 
         room("Entry Chamber", () => {
