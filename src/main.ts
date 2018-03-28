@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: main.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T08:51:02-04:00
+ * @Last modified time: 2018-03-28T11:14:52-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -26,7 +26,7 @@ function createWindow() {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, "../index.html"),
+      pathname: path.join(__dirname, "./app/index.html"),
       protocol: "file:",
       slashes: true,
   }));
@@ -56,6 +56,7 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+  process.exit();
 });
 
 app.on("activate", () => {

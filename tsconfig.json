@@ -2,16 +2,19 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "outDir": "bin",
     "rootDir": "src",
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "experimentalDecorators": true,
+    "lib": [ "es2015", "dom" ]
   },
   "files": [
-    "src/d20/index.d.ts"  
+    "src/d20/index.d.ts"
   ],
   "include": [
     "src/**/*.ts"

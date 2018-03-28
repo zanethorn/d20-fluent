@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Ruleset.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T08:36:35-04:00
+ * @Last modified time: 2018-03-28T10:40:05-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -29,15 +29,16 @@ export class Ruleset
     }
 
     get rules(): IterableIterator<IRule> {
-        let self = this;
-        function *_rules(): IterableIterator<IRule> {
-            for (let v of self.children){
-                if (v instanceof Rule || v instanceof Ruleset) {
-                    yield <IRule>v;
-                }
-            }
-        }
-        return _rules();
+        // let self = this;
+        // function *_rules() {
+        //     // for (let v of self.children){
+        //     //     if (v instanceof Rule || v instanceof Ruleset) {
+        //     //         yield <IRule>v;
+        //     //     }
+        //     // }
+        // }
+        // return _rules();
+        return null;
     }
 
     // apply():void {

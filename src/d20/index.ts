@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: index.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T08:50:17-04:00
+ * @Last modified time: 2018-03-28T10:45:53-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -14,7 +14,7 @@ import { IRuleset, ComponentFactory } from './framework/components'
 import { d20Environment } from './d20Environment';
 
 const d20: d20Environment = d20Environment.instance;
-export = d20;
+export default d20;
 
 (<any>global).d20 = d20;
 (<any>global).ruleset = d20.ruleset;
