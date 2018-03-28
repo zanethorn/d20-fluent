@@ -4,40 +4,42 @@
  * @Project: d20-fluent
  * @Filename: DefaultFramework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T08:49:47-04:00
+ * @Last modified time: 2018-03-28T15:02:21-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 import { Id20Framework } from './Id20Framework';
 import {
-    Component,
     ComponentBase,
     ComponentFactory,
     ComponentInitializer,
     ComponentInitializerOrString,
     IComponent,
+    IRule,
+    Rule,
     IRuleset,
-    Ruleset
+    Ruleset,
+    ComponentCallback
 } from './components';
 import * as c from './components';
 import { IEnumerable, ArrayList } from './collections';
 import * as path from "path";
+import { v4 } from 'node-uuid';
 
-type ComponentConstructor<T> = new (parent:IComponent, name:string, initializer: ComponentInitializer) => T ;
+type ComponentConstructor<T> = new (parent:IComponent, name:string) => T ;
 
 export class DefaultFramework
     implements Id20Framework
 {
-    private static _instance: DefaultFramework;
     private _currentComponent: IComponent;
-    private readonly _children: ArrayList<IComponent> = new ArrayList<IComponent>();
 
-
-    name: string = "_";
+    name: string = "Framework";
     description: string = "Default d20 Rules Framework";
 
     constructor() {
-
+        this._currentComponent = this;
+        this.ruleset = this._factoryFactory(Ruleset);
+        this.rule = this._factoryFactory(Rule);
     }
 
     get currentComponent(): IComponent {
@@ -53,7 +55,17 @@ export class DefaultFramework
     }
 
     get children(): IterableIterator<IComponent> {
-        return this._children[Symbol.iterator]();
+        return this._children();
+    }
+
+    private *_children() {
+        console.log('Listing components of self:');
+        for (let k in (<any>this)) {
+            let v = (<any>this)[k];
+            if (v instanceof ComponentBase) {
+                yield v;
+            }
+        }
     }
 
     find(p:any): IComponent {
@@ -61,22 +73,16 @@ export class DefaultFramework
     }
 
     ruleset: ComponentFactory<IRuleset>;
+    rule: ComponentFactory<IRule>;
 
-    include(p: IComponent | string): void{
+    include(path:string): Promise<any> {
         console.log("Importing %s...", p);
-        import(<string>p).then((m) => {
+        return import(<string>p).then((m) => {
             console.log("%s imported successfully", p);
-            for (let p in m) {
-                let v:any = m[p];
-                console.log("%s:%s", p, v);
-            }
         });
     }
 
-    initializer(): void {
-        this._currentComponent = this;
-        this.ruleset = this._factoryFactory(Ruleset);
-
+    init(): void {
         let coreRulesPath = path.join(__dirname, "../rulesets/core");
         this.include(coreRulesPath);
     }
@@ -86,21 +92,18 @@ export class DefaultFramework
 
     private _factoryFactory<TType extends IComponent>(t:ComponentConstructor<TType>): ComponentFactory<TType> {
         let self = this;
-        return function(name: string, initializer: () => void): TType {
+        return function(name: string, callback: ComponentCallback): TType {
 
             let c = new t(
                 self._currentComponent,
-                name,
-                initializer
+                name
             );
 
             (<any>self._currentComponent)[name] = c;
             self._currentComponent = c;
-            c.initializer.call(c);
+            callback(c);
             self._currentComponent = c.parent;
             return c;
         }
     }
-
-
 }

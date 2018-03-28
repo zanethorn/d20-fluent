@@ -1,28 +1,28 @@
 /**
  * @Author: Zane Thorn <zanethorn>
- * @Date:   2018-03-28T08:59:46-04:00
+ * @Date:   2018-03-28T11:44:35-04:00
  * @Project: d20-fluent
- * @Filename: app.component.ts
+ * @Filename: intro.component.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T13:40:24-04:00
+ * @Last modified time: 2018-03-28T13:31:39-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-
-
 import { Component, OnInit } from '@angular/core';
-import d20 from '../d20'
+
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app/assets/html/app.component.html',
+  selector: 'app-intro',
+  templateUrl: './app/assets/html/intro.component.html',
   styleUrls: []
 })
-export class AppComponent
-    implements OnInit
-{
+export class IntroComponent implements OnInit {
+
+    title = 'd20 Engine';
+    constructor() { }
+
     ngOnInit() {
-        d20.initialize();
     }
+
 }

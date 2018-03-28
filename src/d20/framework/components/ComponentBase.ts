@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: ComponentBase.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T07:07:00-04:00
+ * @Last modified time: 2018-03-28T13:08:04-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -20,8 +20,7 @@ export abstract class ComponentBase
 
     constructor(
         public readonly parent:IComponent,
-        public readonly name:string,
-        public readonly initializer: ComponentInitializer
+        public readonly name:string
         ) {
 
     }

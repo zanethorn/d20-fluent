@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Ruleset.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T10:40:05-04:00
+ * @Last modified time: 2018-03-28T13:12:04-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -22,10 +22,9 @@ export class Ruleset
 {
     constructor(
         parent:IComponent,
-        name:string,
-        initializer: ComponentInitializer
+        name:string
         ) {
-        super(parent, name, initializer);
+        super(parent, name);
     }
 
     get rules(): IterableIterator<IRule> {

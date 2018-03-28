@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: main.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T11:14:52-04:00
+ * @Last modified time: 2018-03-28T13:37:44-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -13,7 +13,6 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
 import * as url from "url";
-import "./d20";
 
 let mainWindow: Electron.BrowserWindow;
 
