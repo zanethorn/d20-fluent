@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: main.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T21:22:43-04:00
+ * @Last modified time: 2018-03-28T08:51:02-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -52,7 +52,7 @@ app.on("ready", createWindow);
 app.on("window-all-closed", () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  d20.destructor();
+  d20.framework.destructor();
   if (process.platform !== "darwin") {
     app.quit();
   }
