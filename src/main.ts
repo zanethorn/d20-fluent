@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: main.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T13:37:44-04:00
+ * @Last modified time: 2018-03-28T18:23:47-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -13,6 +13,7 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
 import * as url from "url";
+import d20 from './d20'
 
 let mainWindow: Electron.BrowserWindow;
 
@@ -51,7 +52,7 @@ app.on("ready", createWindow);
 app.on("window-all-closed", () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  d20.framework.destructor();
+  d20.dispose();
   if (process.platform !== "darwin") {
     app.quit();
   }

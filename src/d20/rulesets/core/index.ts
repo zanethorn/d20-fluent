@@ -4,16 +4,13 @@
  * @Project: d20-fluent
  * @Filename: core.ruleset.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T14:30:41-04:00
+ * @Last modified time: 2018-03-28T18:40:35-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 import '../../../d20'
 
-ruleset("core_rules", (self:any) => {
-    self.description = "d20 Core Ruleset";
 
-
-
-    console.log('Core rules imported successfully.');
-});
+rulebook("core_rules",
+    rule("display_loaded", () => { console.log("Loaded core_rules"); })
+);

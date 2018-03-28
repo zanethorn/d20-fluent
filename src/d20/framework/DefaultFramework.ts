@@ -4,21 +4,22 @@
  * @Project: d20-fluent
  * @Filename: DefaultFramework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T15:02:21-04:00
+ * @Last modified time: 2018-03-28T18:42:27-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 import { Id20Framework } from './Id20Framework';
 import {
-    ComponentBase,
+    //ComponentBase,
     ComponentFactory,
     ComponentInitializer,
     ComponentInitializerOrString,
     IComponent,
     IRule,
     Rule,
-    IRuleset,
-    Ruleset,
+    IRulebook,
+    RulebookBinder,
+    Rulebook,
     ComponentCallback
 } from './components';
 import * as c from './components';
@@ -32,14 +33,16 @@ export class DefaultFramework
     implements Id20Framework
 {
     private _currentComponent: IComponent;
+    readonly rulebooks: IRulebook[] = [];
 
-    name: string = "Framework";
     description: string = "Default d20 Rules Framework";
 
     constructor() {
         this._currentComponent = this;
-        this.ruleset = this._factoryFactory(Ruleset);
-        this.rule = this._factoryFactory(Rule);
+    }
+
+    get id(): string {
+        return "d20Framework";
     }
 
     get currentComponent(): IComponent {
@@ -50,60 +53,56 @@ export class DefaultFramework
         return this;
     }
 
-    get parent(): IComponent {
-        return this;
-    }
-
-    get children(): IterableIterator<IComponent> {
-        return this._children();
-    }
-
-    private *_children() {
-        console.log('Listing components of self:');
-        for (let k in (<any>this)) {
-            let v = (<any>this)[k];
-            if (v instanceof ComponentBase) {
-                yield v;
-            }
-        }
-    }
-
     find(p:any): IComponent {
         throw "Not implemented";
     }
 
-    ruleset: ComponentFactory<IRuleset>;
-    rule: ComponentFactory<IRule>;
+    get rulebook(): RulebookBinder {
+        let self = this;
+        function _rulebook(id: string, ...rules: IRule[]): IRulebook {
+
+            let rulebook:IRulebook = undefined;
+            for(let r of self.rulebooks){
+                if (r.id === id){
+                    rulebook = r;
+                    break;
+                }
+            }
+
+            if (rulebook === undefined){
+                rulebook = new Rulebook(id);
+                console.log("Making rulebook %s", id);
+                self.rulebooks.push(rulebook);
+            }
+
+            for (let r of rules) {
+                console.log("Added rule %s to rulebook %s.", r.id, rulebook.id);
+                rulebook.rules.push(r);
+            }
+
+            return rulebook;
+        }
+        return _rulebook;
+    }
+
+    get rule(): (id:string, onApply: () => void) => IRule {
+        let self = this;
+        function _rule(id:string, onApply: () => void): IRule {
+            return new Rule(id, onApply);
+        }
+        return _rule;
+    }
 
     include(path:string): Promise<any> {
-        console.log("Importing %s...", p);
-        return import(<string>p).then((m) => {
-            console.log("%s imported successfully", p);
+        console.log("Importing %s...", path);
+        return import(<string>path).then((m) => {
+            console.log("%s imported successfully", path);
         });
     }
 
-    init(): void {
+    initialize(): void {
         let coreRulesPath = path.join(__dirname, "../rulesets/core");
         this.include(coreRulesPath);
     }
-    destructor(): void {
 
-    }
-
-    private _factoryFactory<TType extends IComponent>(t:ComponentConstructor<TType>): ComponentFactory<TType> {
-        let self = this;
-        return function(name: string, callback: ComponentCallback): TType {
-
-            let c = new t(
-                self._currentComponent,
-                name
-            );
-
-            (<any>self._currentComponent)[name] = c;
-            self._currentComponent = c;
-            callback(c);
-            self._currentComponent = c.parent;
-            return c;
-        }
-    }
 }

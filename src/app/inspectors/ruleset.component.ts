@@ -4,13 +4,13 @@
  * @Project: d20-fluent
  * @Filename: ruleset.component.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T14:43:08-04:00
+ * @Last modified time: 2018-03-28T18:36:28-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { Component, OnInit } from '@angular/core';
-import { IRuleset } from '../../d20/framework/components'
+import { IRulebook, IRule } from '../../d20/framework/components'
 import d20 from '../../d20'
 
 @Component({
@@ -20,22 +20,12 @@ import d20 from '../../d20'
 })
 export class RulesetComponent implements OnInit {
 
-    rulesets = <any>[
-        // { name:'harpo' },
-        // { name:'chico' },
-        // { name:'zippo' }
-    ];
+    rulebooks: IRulebook[] = [];
 
     constructor() { }
 
     ngOnInit() {
-        console.log("trying to load rulesets");
-        for (let c of d20.framework.children) {
-            console.log(c);
-            this.rulesets.push(c);
-        }
-
-
+        this.rulebooks = d20.framework.rulebooks;
     }
 
 }
