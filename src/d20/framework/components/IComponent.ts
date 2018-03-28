@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: IComponent.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T20:07:02-04:00
+ * @Last modified time: 2018-03-28T06:47:17-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -12,14 +12,14 @@ import { IHasName } from "../IHasName"
 import { IEnumerable } from "../collections"
 
 export interface IComponent
-    extends IHasName
 {
+    readonly name: string;
     readonly parent: IComponent;
-    readonly children: IEnumerable<IComponent>;
+    readonly children: Iterator<IComponent>;
+    readonly initializer: () => void
 
     description: string;
 
-    initializer: () => void
     destructor: () => void;
 
     find(p:any): IComponent;

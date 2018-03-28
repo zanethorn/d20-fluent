@@ -16,6 +16,4 @@ export interface IRuleset
     extends IRule
 {
     readonly rules: IEnumerable<IRule>;
-    addRule(r:IRule): void;
-
 }

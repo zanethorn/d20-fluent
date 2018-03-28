@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: DefaultFramework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T21:45:00-04:00
+ * @Last modified time: 2018-03-28T08:36:17-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -23,7 +23,7 @@ import * as c from './components';
 import { IEnumerable, ArrayList } from './collections';
 import * as path from "path";
 
-type ComponentConstructor<T> = new (parent:IComponent, name:string, description: string,initializer: ComponentInitializer) => T ;
+type ComponentConstructor<T> = new (parent:IComponent, name:string, initializer: ComponentInitializer) => T ;
 
 export class DefaultFramework
     implements Id20Framework
@@ -53,11 +53,9 @@ export class DefaultFramework
         return this;
     }
 
-    get children(): IEnumerable<IComponent> {
-        return this._children;
+    get children(): IterableIterator<IComponent> {
+        return this._children[Symbol.iterator]();
     }
-
-
 
     find(p:any): IComponent {
         throw "Not implemented";
@@ -77,9 +75,10 @@ export class DefaultFramework
     }
 
     initializer(): void {
+        this._currentComponent = this;
         this.ruleset = this._factoryFactory(Ruleset);
 
-        let coreRulesPath = path.join(__dirname, "../rulesets/core/core.ruleset.js");
+        let coreRulesPath = path.join(__dirname, "../rulesets/core");
         this.include(coreRulesPath);
     }
     destructor(): void {
@@ -88,46 +87,18 @@ export class DefaultFramework
 
     private _factoryFactory<TType extends IComponent>(t:ComponentConstructor<TType>): ComponentFactory<TType> {
         let self = this;
-        return function(...args:ComponentInitializerOrString[]): TType {
-            let l = args.length;
-            let name: string = '';
-            let description: string = '';
-            var initializer: ComponentInitializer = () => {};
-            let c: TType;
+        return function(name: string, initializer: () => void): TType {
 
-            if (l === 0){
-                throw new Error("Unable to construct object, no arguments provided");
-            }
-            else if (l === 1) {
-                if (typeof args[0] === 'string'){
-                    name = <string>args[0];
-                }
-                else {
-                    initializer = <ComponentInitializer>args[0];
-                }
-            }
-            else if (l === 2) {
-                if (typeof args[0] !== 'string'){
-                }
-                else {
-                    name = <string>args[0];
-                }
-                initializer = <ComponentInitializer>args[1];
-            }
-
-            console.log("TType:")
-            console.log(t);
-            c = new t(
+            let c = new t(
                 self._currentComponent,
                 name,
-                description,
                 initializer
             );
-            let oldComponent = self._currentComponent;
-            self._children.add(c);
+
+            (<any>self._currentComponent)[name] = c;
             self._currentComponent = c;
             c.initializer.call(c);
-            self._currentComponent = oldComponent;
+            self._currentComponent = c.parent;
             return c;
         }
     }

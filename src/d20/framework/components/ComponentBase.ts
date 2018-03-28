@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: ComponentBase.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T20:10:04-04:00
+ * @Last modified time: 2018-03-28T07:07:00-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -15,19 +15,27 @@ import { IEnumerable, ArrayList } from '../collections'
 export abstract class ComponentBase
     implements IComponent
 {
-    private readonly _children: ArrayList<IComponent> = new ArrayList<IComponent>();
+    //private readonly _children: ArrayList<IComponent> = new ArrayList<IComponent>();
+    public description: string;
 
     constructor(
         public readonly parent:IComponent,
-        public name:string,
-        public description: string,
-        public initializer: ComponentInitializer
+        public readonly name:string,
+        public readonly initializer: ComponentInitializer
         ) {
 
     }
 
-    get children(): IEnumerable<IComponent> {
-        return this._children;
+    get children(): IterableIterator<IComponent> {
+        let self = <any>this;
+        function *_children(): IterableIterator<IComponent> {
+            for (let v of self){
+                if (v instanceof ComponentBase) {
+                    yield v;
+                }
+            }
+        }
+        return _children();
     }
 
     destructor: () => void;
@@ -35,4 +43,9 @@ export abstract class ComponentBase
     find(p:any): IComponent {
         throw "Not implemented";
     }
+
+    protected addChild(child: IComponent): void {
+        (<any>this)[child.name] = child;
+    }
+
 }
