@@ -4,15 +4,9 @@
  * @Project: d20-fluent
  * @Filename: index.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T14:32:46-04:00
+ * @Last modified time: 2018-03-27T19:53:58-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import { app } from 'electron'
-import { d20 } from './main'
-
-app.on('ready', () => { d20.run(); });
-
-exports.adventure = d20.adventure;
-exports.dungeon = d20.dungeon;
+import './main'

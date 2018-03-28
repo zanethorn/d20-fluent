@@ -7,15 +7,18 @@
     "preserveConstEnums": true,
     "outDir": "bin",
     "rootDir": "src",
-    "strictNullChecks": true,
     "sourceMap": true,
     "declaration": true
   },
+  "files": [
+    "src/d20/index.d.ts"  
+  ],
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "bin",
+    "src/core/*"
   ]
 }

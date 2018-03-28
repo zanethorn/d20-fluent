@@ -4,23 +4,21 @@
  * @Project: d20-fluent
  * @Filename: index.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T15:12:35-04:00
+ * @Last modified time: 2018-03-27T21:10:20-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import { Id20Framework } from './framework'
-import { d20 } from './main'
+import { Id20Framework, DefaultFramework } from './framework'
+import { IRuleset, ComponentFactory } from './framework/components'
 
-class Framework
-    implements Id20Framework
-{
-    adventure: ComponentFactory<IAdventure>;
-    dungeon: ComponentFactory<IDungeon>;
+let d20: Id20Framework = DefaultFramework.instance;
+export = d20;
+
+(<any>global).d20 = d20;
+(<any>global).ruleset = d20.ruleset;
+
+declare global {
+    const d20: Id20Framework;
+    const ruleset: ComponentFactory<IRuleset>;
 }
-
-let d20: Id20Framework = new Framework();
-
-exports.d20 = d20;
-exports.adventure = d20.adventure;
-exports.dungeon = d20.dungeon;

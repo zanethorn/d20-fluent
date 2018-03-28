@@ -4,14 +4,22 @@
  * @Project: d20-fluent
  * @Filename: Id20Framework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T15:12:21-04:00
+ * @Last modified time: 2018-03-27T20:33:13-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import { ComponentFactory, IAdventure, IDungeon } from './components'
+import { IRuleset, IComponent, ComponentFactory } from './components'
 
-export interface Id20Framework {
-    adventure: ComponentFactory<IAdventure>;
-    dungeon: ComponentFactory<IDungeon>;
+export interface Id20Framework
+    extends IComponent
+{
+
+    readonly currentComponent: IComponent;
+
+    readonly d20: Id20Framework;
+
+    ruleset: ComponentFactory<IRuleset>;
+
+    include(p: IComponent | string): void;
 }

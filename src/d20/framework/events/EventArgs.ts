@@ -4,11 +4,11 @@
  * @Project: d20-fluent
  * @Filename: EventArgs.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T15:19:02-04:00
+ * @Last modified time: 2018-03-27T19:08:56-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
-import { IEventArgs } from './EventArgs'
+import { IEventArgs } from './IEventArgs'
 
 export abstract class EventArgs
     implements IEventArgs

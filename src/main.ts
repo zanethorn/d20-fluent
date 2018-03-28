@@ -1,98 +1,70 @@
 /**
  * @Author: Zane Thorn <zanethorn>
- * @Date:   2018-03-27T11:55:27-04:00
+ * @Date:   2018-03-27T19:52:57-04:00
  * @Project: d20-fluent
  * @Filename: main.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T14:21:46-04:00
+ * @Last modified time: 2018-03-27T21:22:43-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
-import { Event, EventArgs, HasEvents, IEvent } from './core/events'
-import { Id20Application, IApplicationEventArgs } from "./app"
-import * as gui from "./gui"
+/// <reference path="./d20/index.d.ts" />
+/// <reference path="./d20/globals.d.ts" />
+import { app, BrowserWindow } from "electron";
+import * as path from "path";
+import * as url from "url";
+import "./d20";
 
-class ApplicationEventArgs
-    extends EventArgs {
+let mainWindow: Electron.BrowserWindow;
 
-    constructor(public readonly app: Id20Application){
-        super(app);
-    }
+function createWindow() {
+  // Create the browser window.
+  mainWindow = new BrowserWindow({
+    height: 600,
+    width: 800,
+  });
+
+  // and load the index.html of the app.
+  mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, "../index.html"),
+      protocol: "file:",
+      slashes: true,
+  }));
+
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools();
+
+  // Emitted when the window is closed.
+  mainWindow.on("closed", () => {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
 }
 
-class Application
-    extends HasEvents(Object)
-    implements Id20Application
-{
-    private readonly _preInit:  Event<ApplicationEventArgs> = new Event<ApplicationEventArgs>();
-    private readonly _postInit: Event<ApplicationEventArgs> = new Event<ApplicationEventArgs>();
-    private readonly _ready: Event<ApplicationEventArgs> = new Event<ApplicationEventArgs>();
-    private readonly _preExit: Event<ApplicationEventArgs> = new Event<ApplicationEventArgs>();
-    private readonly _terminate: Event<ApplicationEventArgs> = new Event<ApplicationEventArgs>();
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on("ready", createWindow);
 
-    private _isRunning: boolean = false;
-
-    constructor(){
-        super();
-    }
-
-    get preInit(): IEvent<IApplicationEventArgs> {
-        return this._preInit;
-    }
-    get postInit(): IEvent<IApplicationEventArgs> {
-        return this._postInit;
-    }
-    get ready(): IEvent<IApplicationEventArgs> {
-        return this._ready;
-    }
-    get preExit(): IEvent<IApplicationEventArgs> {
-        return this._preExit;
-    }
-    get terminate(): IEvent<IApplicationEventArgs> {
-        return this._terminate;
-    }
-
-
-    run(): void{
-        this._preInit.invoke(new ApplicationEventArgs(this));
-
-        // Initialization logic goes there
-
-        this._postInit.invoke(new ApplicationEventArgs(this));
-
-        this._isRunning = true;
-        this._ready.invoke(new ApplicationEventArgs(this));
-    }
-
-    exit(): void {
-        this._isRunning = false;
-        this._preExit.invoke(new ApplicationEventArgs(this));
-        this._terminate.invoke(new ApplicationEventArgs(this));
-    }
-}
-
-//export { Id20Application };
-export const d20: Id20Application = new Application();
-
-// Ready the GuiManager
-d20.on('preInit', (e:IApplicationEventArgs) => {
-    console.log("d20 Framework is Initializing.");
-    gui.configure(e.app);
+// Quit when all windows are closed.
+app.on("window-all-closed", () => {
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  d20.destructor();
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
 
-d20.on('postInit', () => {
-    console.log("d20 Framework Has Initialized.");
+app.on("activate", () => {
+  // On OS X it"s common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (mainWindow === null) {
+    createWindow();
+  }
 });
 
-d20.on('ready', () => {
-    console.log("d20 Framework is Ready.");
-});
-
-d20.on('preExit', () => {
-    console.log("d20 Framework is Preparing to exit.");
-});
-
-d20.on('terminate', () => {
-    console.log("d20 Framework has terminated.");
-    process.exit();
-});
+// In this file you can include the rest of your app"s specific main process
+// code. You can also put them in separate files and require them here.

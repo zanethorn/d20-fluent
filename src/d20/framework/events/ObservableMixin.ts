@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: ObservableMixin.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-27T15:39:51-04:00
+ * @Last modified time: 2018-03-27T18:57:28-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -13,8 +13,10 @@ import { IObservable } from './IObservable';
 import { Constructor } from '../Constructor';
 import { EventArgs } from './EventArgs';
 import { Event } from './Event';
-import { IEventArgs } from './IEventARgs';
-
+import { IEvent } from './IEvent';
+import { IEventArgs } from './IEventArgs';
+import { IPropertyChangedEventArgs } from './IPropertyChangedEventArgs'
+import { PropertyChangedEventArgs } from './PropertyChangedEventArgs'
 
 export function ObservableMixin<TBase extends Constructor>(Base: TBase): Constructor<IObservable> & TBase {
     return class extends Base implements IObservable {
