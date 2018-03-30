@@ -4,15 +4,16 @@
  * @Project: d20-fluent
  * @Filename: IHasArmorClass.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T10:14:18-04:00
+ * @Last modified time: 2018-03-30T12:51:22-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { IHasSize } from "../size/IHasSize";
+import { IArmorClass } from "./IArmorClass";
 
 export interface IHasArmorClass
     extends IHasSize
 {
-    armorClass: IHasArmorClass;
+    armorClass: IArmorClass;
 }

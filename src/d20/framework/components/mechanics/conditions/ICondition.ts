@@ -4,15 +4,15 @@
  * @Project: d20-fluent
  * @Filename: ICondition.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T10:15:16-04:00
+ * @Last modified time: 2018-03-30T18:55:44-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import { IComponent } from '../../IComponent';
+import { IHasModifiers } from '../IHasModifiers';
 
 export interface ICondition
-    extends IComponent
+    extends IHasModifiers
 {
 
 }

@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: ICreature.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T09:53:03-04:00
+ * @Last modified time: 2018-03-30T11:00:26-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -35,21 +35,27 @@ import { ICreatureType } from './ICreatureType';
 export interface ICreature
     extends
     IThing,
+    IHasAbilities,
     IHasAbilityScores,
+    IHasAlignment,
+    ICanAttack,
+    IHasArmorClass,
+
+
     IHasSavingThrows,
     IHasSkills,
     IHasSize,
-    IHasAlignment,
+
     ICanMove,
     ICanTakeDamage,
-    ICanAttack,
-    IHasArmorClass,
+
+
     IHasType<ICreatureType>,
     IHasFeats,
     IHasName,
     IWearsItems,
     IHasChallengeRating,
-    IHasAbilities,
+
     IHasConditions
 {
     readonly subtypes: IterableIterator<ICreatureSubtype>;

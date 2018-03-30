@@ -4,22 +4,30 @@
  * @Project: d20-fluent
  * @Filename: SkillType.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T10:20:32-04:00
+ * @Last modified time: 2018-03-30T17:06:19-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import { ISkillType } from "./ISkillType";
 import { AbilityScoreType } from "../abilityscores";
+import { IComponent } from "../../IComponent";
 
-export class SkillType implements ISkillType {
+export class SkillType
+    implements IComponent
+{
+    private static readonly _types: SkillType[] = [];
+
     description: string;
 
     constructor (
         public readonly id: string,
-        public readonly type: AbilityScoreType,
+        public readonly abilityScore: AbilityScoreType,
         public readonly useUntrained: boolean
     ){
+        SkillType._types.push(this);
+    }
 
+    static get types(): IterableIterator<SkillType> {
+        return this._types[Symbol.iterator]();
     }
 }

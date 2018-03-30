@@ -4,10 +4,15 @@
  * @Project: d20-fluent
  * @Filename: index.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T09:47:18-04:00
+ * @Last modified time: 2018-03-30T11:11:03-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
+
+export * from './ICheckResult';
+export * from './IHasModifiers';
+export * from './IModifier';
+export * from './IScore';
 
 export * from './abilities';
 export * from './abilityscores';
@@ -21,6 +26,3 @@ export * from './savingthrows';
 export * from './size';
 export * from './skills';
 export * from './IEffect';
-export * from './IHasModifiers';
-export * from './IModifier';
-export * from './IScore';

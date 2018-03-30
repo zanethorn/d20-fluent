@@ -11,6 +11,7 @@
 
 export enum GoodEvil
 {
+    neutral = 0,
     good = 1,
     evil = 2
 }
