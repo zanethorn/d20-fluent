@@ -12,7 +12,7 @@
 import { ICreature } from "../creatures";
 import { ICharacterClass } from "./ICharacterClass";
 import { IClassLevel } from "./IClassLevel";
-import { IHasExperience } from "../mechanics/experience";
+import { IHasExperience } from "../mechanics";
 
 export interface ICharacter
     extends ICreature, IHasExperience

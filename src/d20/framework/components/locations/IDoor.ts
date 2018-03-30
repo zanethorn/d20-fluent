@@ -4,13 +4,13 @@
  * @Project: d20-fluent
  * @Filename: IDoor.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-29T20:15:15-04:00
+ * @Last modified time: 2018-03-30T10:10:45-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-import { IThing } from './IThing';
-import { IMaterial } from './mechanics/IMaterial';
+import { IThing } from '../IThing';
+import { IMaterial } from '../mechanics';
 
 export interface IDoor
     extends IThing

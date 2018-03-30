@@ -4,16 +4,16 @@
  * @Project: d20-fluent
  * @Filename: Area.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-29T20:25:38-04:00
+ * @Last modified time: 2018-03-30T10:06:54-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { IArea } from './IArea';
 import { IDoor } from './IDoor';
-import { IThing } from './IThing';
-import { IModifier, IMaterial } from './mechanics';
-import { ArrayList, ICollection, IEnumerable } from '../collections';
+import { IThing } from '../IThing';
+import { IModifier, IMaterial } from '../mechanics';
+import { ArrayList, ICollection, IEnumerable } from '../../collections';
 
 
 export class Area

@@ -4,17 +4,15 @@
  * @Project: d20-fluent
  * @Filename: IArea.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-29T20:22:51-04:00
+ * @Last modified time: 2018-03-30T10:09:09-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
-import { IComponent } from './IComponent';
-import { IModifier } from './IModifier';
-import { IMaterial } from './mechanics/IMaterial'
-import { IThing } from './IThing'
-import { IHasModifiers } from './IHasModifiers';
-import { ICollection } from '../collections';
-import { IContainsThings } from './IContainsThings'
+import { IComponent } from '../IComponent';
+import { IMaterial, IHasModifiers, IModifier } from '../mechanics'
+import { IThing } from '../IThing'
+import { ICollection } from '../../collections';
+import { IContainsThings } from '../IContainsThings'
 
 declare module './IDoor'
 {
@@ -33,7 +31,7 @@ export interface IArea
     readonly parent: IArea;
     readonly children: IterableIterator<IArea>;
     readonly isOutside: boolean;
-    
+
     walls: IMaterial;
     floor: IMaterial;
 

@@ -4,19 +4,18 @@
  * @Project: d20-fluent
  * @Filename: Id20Framework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T18:34:20-04:00
+ * @Last modified time: 2018-03-30T10:00:42-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import {
     IRulebook,
-    RulebookBinder,
     IRule,
-    RuleBinder,
-    IComponent,
-    ComponentFactory
+    IComponent
 } from './components'
+import { RulebookBinder } from './components/Rulebook';
+import { RuleBinder } from './components/Rule';
 
 export interface Id20Framework
     extends IComponent

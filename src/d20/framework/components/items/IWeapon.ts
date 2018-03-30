@@ -13,4 +13,6 @@ import { IItem } from "./IItem";
 
 export interface IWeapon
     extends IItem
-{}
+{
+    
+}

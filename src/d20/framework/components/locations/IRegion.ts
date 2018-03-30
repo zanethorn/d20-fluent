@@ -9,8 +9,10 @@
  * @Copyright: 2018 Zane Thorn
  */
 
+import { IArea } from './IArea';
+
 export interface IRegion
     extends IArea
 {
-    
+
 }

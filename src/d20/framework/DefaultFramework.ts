@@ -4,28 +4,22 @@
  * @Project: d20-fluent
  * @Filename: DefaultFramework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T18:42:27-04:00
+ * @Last modified time: 2018-03-30T09:59:41-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 import { Id20Framework } from './Id20Framework';
 import {
-    //ComponentBase,
-    ComponentFactory,
-    ComponentInitializer,
-    ComponentInitializerOrString,
     IComponent,
     IRule,
-    Rule,
     IRulebook,
-    RulebookBinder,
-    Rulebook,
-    ComponentCallback
 } from './components';
 import * as c from './components';
 import { IEnumerable, ArrayList } from './collections';
 import * as path from "path";
 import { v4 } from 'node-uuid';
+import { RulebookBinder, Rulebook } from './components/Rulebook';
+import { Rule } from './components/Rule';
 
 type ComponentConstructor<T> = new (parent:IComponent, name:string) => T ;
 

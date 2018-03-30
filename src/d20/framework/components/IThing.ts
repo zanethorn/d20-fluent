@@ -4,14 +4,14 @@
  * @Project: d20-fluent
  * @Filename: IThing.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-29T22:48:13-04:00
+ * @Last modified time: 2018-03-30T09:32:56-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { IComponent } from './IComponent'
 
-declare module './IArea'
+declare module './locations'
 {
     export interface IArea
         extends IComponent
@@ -20,7 +20,7 @@ declare module './IArea'
     }
 }
 
-import { IArea } from './IArea'
+import { IArea } from './locations'
 
 export interface IThing
     extends IComponent

@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: d20Environment.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T18:35:36-04:00
+ * @Last modified time: 2018-03-30T09:58:05-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -12,11 +12,10 @@
 import { Id20Framework, DefaultFramework } from './framework';
 import {
     IRulebook,
-    RulebookBinder,
     IRule,
-    RuleBinder,
-    ComponentFactory
 } from './framework/components';
+import { RuleBinder } from './framework/components/Rule';
+import { RulebookBinder } from './framework/components/Rulebook';
 
 export class d20Environment {
 
