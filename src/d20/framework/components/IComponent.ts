@@ -14,7 +14,6 @@ import { IEnumerable } from "../collections"
 export interface IComponent
 {
     readonly id: string;
-
     description: string;
 
 }

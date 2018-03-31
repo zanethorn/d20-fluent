@@ -4,148 +4,164 @@
  * @Project: d20-fluent
  * @Filename: Creature.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T19:36:36-04:00
+ * @Last modified time: 2018-03-31T00:11:32-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { ICreature } from './ICreature';
 import {
-    DefaultAbilityScoreFactory,
-    IAbilityScore,
-    AbilityScoreType,
-    IAbility,
-    Alignment,
-    IScore,
-    IArmorClass,
-    ICondition,
-    IAttack,
+
+    IHasAbilities,
+    HasAbilitiesMixin,
+
+    IHasAbilityScores,
+    HasAbilityScoresMixin,
+
+    IHasAlignment,
+    HasAlignmentMixin,
+
     IHasArmorClass,
-    IAttackResult,
-    IFeat,
-    ISavingThrow,
-    SavingThrowType,
-    ISkill
+    HasArmorClassMixin,
+
+    IHasSavingThrows,
+    HasSavingThrowsMixin,
+
+    IHasConditions,
+    HasConditionsMixin,
+
+    IHasChallengeRating,
+    HasChallengeRatingMixin,
+
+    IHasFeats,
+    HasFeatsMixin,
+
+    ICanAttack,
+    CanAttackMixin,
+
+    ICanMove,
+    CanMoveMixin,
+
+    IHasSkills,
+    HasSkillsMixin,
+
+    IHasScores,
+    HasScoresMixin,
+
+    IHasModifiers,
+    HasModifiersMixin,
+
+    IHasSize,
+    HasSizeMixin,
+
+    ICanTakeDamage,
+    CanTakeDamageMixin
 } from '../mechanics';
+import {
+    IHasItems,
+    HasItemsMixin,
+
+    IWearsItems,
+    WearsItemsMixin
+} from '../items';
 import { ArrayList } from '../../collections';
-import { DefaultBaseAttackFactory } from '../mechanics/combat/BaseAttack';
-import { DefaultInitiativeFactory } from '../mechanics/combat/Initiative';
-import { DefaultArmorClassFactory } from '../mechanics/combat/ArmorClass';
-import { DefaultSpeedFactory } from '../mechanics/movement/Speed';
-import { DefaultSavingThrowFactory } from '../mechanics/savingthrows/SavingThrow';
-import { ISize } from '../mechanics/size/ISize';
-import { Thing } from '../Thing';
+import { ThingBase } from '../ThingBase';
+import { ICreatureType } from './ICreatureType';
+import { ICreatureSubtype } from './ICreatureSubtype';
+import { CreatureType } from './CreatureType';
+import { IArea } from '../locations';
 
 export class Creature
     extends
-    HasAbilitiesMixin (
-    HasAbilityScoresMixin (
-    HasAlignmentMixin (
-    HasArmorClassMixin (
-    CanAttackMixin (
-    HasConditionsMixin (
-    HasChallengeRatingMixin (
-    HasFeatsMixin (
-    CanMoveMixin (
-    HasSavingThrows (
-    HasScoresMixin (
-        Thing
+    WearsItemsMixin (
+        HasItemsMixin (
+            HasAbilitiesMixin (
+                HasAbilityScoresMixin (
+                    HasAlignmentMixin (
+                        CanTakeDamageMixin (
+                            HasArmorClassMixin (
+                                CanAttackMixin (
+                                    HasConditionsMixin (
+                                        HasChallengeRatingMixin (
+                                            HasFeatsMixin (
+                                                CanMoveMixin (
+                                                    HasSavingThrowsMixin (
+                                                        HasSizeMixin (
+                                                            HasSkillsMixin (
+                                                                HasScoresMixin (
+                                                                    HasModifiersMixin(
+                                                                        ThingBase
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
     )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
-)
-)
     implements ICreature
 {
+    private _type: ICreatureType = CreatureType.humanoid;
+    private _subtypes: ArrayList<ICreatureSubtype> = new ArrayList<ICreatureSubtype>();
 
-
-
-
-
-    private _skills: ArrayList<ISkill> = new ArrayList<ISkill>();
-    
-
-
-
-
-    get skills(): IterableIterator<ISkill> {
-        return this._skills[Symbol.iterator]();
+    get type(): ICreatureType {
+        return this._type;
+    }
+    set type(value:ICreatureType) {
+        for (let a of this._type.abilities) {
+            this.removeAbility(a);
+        }
+        for (let m of this._type.modifiers) {
+            this.removeModifier(m);
+        }
+        this._type = value;
+        for (let a of value.abilities) {
+            this.addAbility(a);
+        }
+        for (let m of value.modifiers) {
+            this.addModifier(m);
+        }
     }
 
-    constructor(){}
+    get subtypes(): IterableIterator<ICreatureSubtype> {
+        return this._subtypes[Symbol.iterator]();
+    }
 
-
-
-    getSkill(type: SkillType): ISkill {
-        let skill:ISkill = null;
-        for (let s of this._skills) {
-            skill = s;
-            break;
-        }
-
-        if (skill === undefined) {
-            if (type.useUntrained){
-                skill = new Skill(type, this);
-                this._skills.add(skill);
+    addSubtype(type:ICreatureSubtype): boolean {
+        if(this._subtypes.add(type)) {
+            for (let a of type.abilities) {
+                this.addAbility(a);
+            }
+            for (let m of type.modifiers) {
+                this.addModifier(m);
             }
         }
-
-        return skill;
+        return false;
     }
-    addSkillRanks(type: ISkillType, ranks: number): ISkill {
-        throw new Error("Method not implemented.");
+    removeSubtype(type:ICreatureSubtype): boolean {
+        if(this._subtypes.remove(type)) {
+            for (let a of type.abilities) {
+                this.removeAbility(a);
+            }
+            for (let m of type.modifiers) {
+                this.removeModifier(m);
+            }
+        }
+        return false;
     }
 
-    subtypes: IterableIterator<ICreatureSubtype>;
     race: string;
-    area: IArea;
     id: string;
     description: string;
-
-    scores: IterableIterator<IScore>;
-    getScore(id: string): IScore {
-        throw new Error("Method not implemented.");
-    }
-    modifiers: IterableIterator<IModifier>;
-    addModifier(modifier: IModifier): boolean {
-        throw new Error("Method not implemented.");
-    }
-    removeModifiers(modifier: IModifier): boolean {
-        throw new Error("Method not implemented.");
-    }
-
-    weight: number;
-    sizeModifer: IModifier;
-
-    move(d: Direction): void {
-        throw new Error("Method not implemented.");
-    }
-    maxHitPoints: number;
-    injuries: number;
-    subdualDamage: number;
-    currentHitPoints: number;
-    hardness: number;
-    takeDamage(damage: IDamage): void {
-        throw new Error("Method not implemented.");
-    }
-
-    type: ICreatureType;
-
-
     name: string;
-    items: IterableIterator<IItem>;
-    addItem(item: IItem): boolean {
-        throw new Error("Method not implemented.");
-    }
-    removeItem(item: IItem): boolean {
-        throw new Error("Method not implemented.");
-    }
-
-
+    //area: IArea;
 }

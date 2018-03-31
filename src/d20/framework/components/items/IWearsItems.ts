@@ -4,27 +4,20 @@
  * @Project: d20-fluent
  * @Filename: IWearsItems.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T12:37:44-04:00
+ * @Last modified time: 2018-03-30T22:04:33-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { IHasItems } from "./IHasItems";
-
+import { IWearableItem } from "./IWearableItem";
+import { ItemLocation } from "./ItemLocation";
 
 export interface IWearsItems
     extends IHasItems
 {
     readonly wornItems: IterableIterator<IWearableItem>;
-    headItem: IWearableItem;
-    glasses: IWearableItem;
-    necklace: IWearableItem;
-    vest: IWearableItem;
-    torso: IWearableItem;
-    belt: IWearableItem;
-    cloak:IWearableItem;
-    bracelet:IWearableItem;
-    leftRing:IWearableItem;
-    rightRing:IWearableItem;
-    boots:IWearableItem
+    itemAt(location:ItemLocation): IWearableItem;
+    wearItem(item: IWearableItem, location: ItemLocation): boolean;
+
 }

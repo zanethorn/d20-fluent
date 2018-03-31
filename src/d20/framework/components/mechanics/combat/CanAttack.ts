@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: BaseAttack.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T19:11:15-04:00
+ * @Last modified time: 2018-03-30T23:08:14-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -16,6 +16,8 @@ import { ArrayList } from "../../../collections";
 import { IAttack } from "./IAttack";
 import { IHasArmorClass } from "./IHasArmorClass";
 import { IAttackResult } from ".";
+import { Constructor } from "../../../Constructor";
+import { IHasScores } from "../IHasScores";
 
 class BaseAttack
     extends Score
@@ -48,13 +50,13 @@ export var DefaultInitiativeFactory: InitiativeFactory = (parent: ICanAttack)  =
     return new Initiative(parent);
 }
 
-export function CanAttackMixin<TBase extends Constructor>(Base: TBase) {
-    return class extends Base
+export function CanAttackMixin<TBase extends Constructor<IHasScores>>(Base: TBase): TBase & Constructor<ICanAttack> {
+    return class extends Base implements ICanAttack
     {
         private _attacks: ArrayList<IAttack> = new ArrayList<IAttack>();
 
-        readonly baseAttack: IScore = DefaultBaseAttackFactory(<ICanAttack><any>this);
-        readonly initiative: IScore = DefaultInitiativeFactory(<ICanAttack><any>this);
+        readonly baseAttack: IScore = DefaultBaseAttackFactory(this);
+        readonly initiative: IScore = DefaultInitiativeFactory(this);
 
         get attacks(): IterableIterator<IAttack> {
             return this._attacks[Symbol.iterator]();

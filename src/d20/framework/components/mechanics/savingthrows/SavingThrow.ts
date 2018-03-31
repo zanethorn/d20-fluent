@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: SavingThrow.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T19:34:05-04:00
+ * @Last modified time: 2018-03-30T20:14:53-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -14,6 +14,7 @@ import { Score } from "../Score";
 import { SavingThrowType } from "./SavingThrowType";
 import { IHasScores } from "../IHasScores";
 import { IHasSavingThrows } from "./IHasSavingThrows";
+import { Constructor } from "../../../Constructor";
 
 abstract class SavingThrow
     extends Score
@@ -63,8 +64,8 @@ export var DefaultSavingThrowFactory: SavingThrowFactory =
     };
 
 
-export function HasSavingThrowsMixin<TBase extends Constructor>(Base: TBase) {
-    return class extends Base
+export function HasSavingThrowsMixin<TBase extends Constructor<IHasScores>>(Base: TBase): TBase & Constructor<IHasSavingThrows> {
+    return class extends Base implements IHasSavingThrows
     {
         readonly fortitude: ISavingThrow = DefaultSavingThrowFactory(SavingThrowType.fortitude, <IHasSavingThrows><any>this);
         readonly reflex: ISavingThrow = DefaultSavingThrowFactory(SavingThrowType.reflex, <IHasSavingThrows><any>this);

@@ -4,13 +4,14 @@
  * @Project: d20-fluent
  * @Filename: StackedModifier.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T11:55:15-04:00
+ * @Last modified time: 2018-03-30T23:25:32-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { IModifier } from './IModifier';
-import { IModifierType } from './IModifierType';
+import { ModifierType } from './ModifierType';
+import { IScore } from './IScore';
 
 export class StackedModifier
     implements IModifier
@@ -25,11 +26,20 @@ export class StackedModifier
         return t;
     }
 
-    get type(): IModifierType {
+    get type(): ModifierType {
         return this._modifiers[0].type;
     }
 
     constructor(...modifiers: IModifier[]){
         this._modifiers = modifiers;
+    }
+
+    appliesTo(score:IScore): boolean{
+        for (let m of this._modifiers){
+            if (!m.appliesTo(score)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

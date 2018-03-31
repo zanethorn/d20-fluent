@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: AbilityScore.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T19:55:19-04:00
+ * @Last modified time: 2018-03-30T22:25:14-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -142,11 +142,11 @@ export var DefaultAbilityScoreFactory: AbilityScoreFactory =
 export function HasAbilityScoresMixin<TBase extends Constructor<IHasScores>>(Base: TBase): TBase & Constructor<IHasAbilityScores> {
     return class extends Base implements IHasAbilityScores
     {
-        readonly strength: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.strength, (<IHasAbilityScores><any>this));
-        readonly dexterity: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.dexterity, (<IHasAbilityScores><any>this));
-        readonly constitution: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.constitution, (<IHasAbilityScores><any>this));
-        readonly intelligence: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.intelligence, (<IHasAbilityScores><any>this));
-        readonly wisdom: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.wisdom, (<IHasAbilityScores><any>this));
-        readonly charisma: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.charisma, (<IHasAbilityScores><any>this));
+        readonly strength: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.strength, this);
+        readonly dexterity: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.dexterity, this);
+        readonly constitution: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.constitution, this);
+        readonly intelligence: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.intelligence, this);
+        readonly wisdom: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.wisdom, this);
+        readonly charisma: IAbilityScore = DefaultAbilityScoreFactory(AbilityScoreType.charisma, this);
     };
 }

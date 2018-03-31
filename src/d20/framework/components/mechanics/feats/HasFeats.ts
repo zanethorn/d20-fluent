@@ -4,13 +4,20 @@
  * @Project: d20-fluent
  * @Filename: Feat.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T19:23:27-04:00
+ * @Last modified time: 2018-03-30T20:09:02-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
-export function HasFeatsMixin<TBase extends Constructor>(Base: TBase) {
-    return class extends Base
+ import { Constructor } from "../../../Constructor";
+import { IHasScores } from "../IHasScores";
+import { IHasFeats } from "./IHasFeats";
+import { ArrayList } from "../../../collections";
+import { IFeat } from "./IFeat";
+
+
+export function HasFeatsMixin<TBase extends Constructor<IHasScores>>(Base: TBase): TBase & Constructor<IHasFeats> {
+    return class extends Base implements IHasFeats
     {
         private _feats: ArrayList<IFeat> = new ArrayList<IFeat>();
 

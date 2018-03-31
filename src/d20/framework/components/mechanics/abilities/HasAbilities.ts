@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Ability.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T19:53:34-04:00
+ * @Last modified time: 2018-03-31T00:19:25-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -19,6 +19,10 @@ export function HasAbilitiesMixin<TBase extends Constructor<IHasScores>>(Base: T
     return class extends Base implements IHasAbilities
     {
         private _abilities: ArrayList<IAbility> = new ArrayList<IAbility>();
+
+        // constructor(id: string) {
+        //     super(id);
+        // }
 
         get abilities(): IterableIterator<IAbility> {
             return this._abilities[Symbol.iterator]();

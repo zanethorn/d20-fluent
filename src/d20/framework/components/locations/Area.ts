@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Area.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T10:06:54-04:00
+ * @Last modified time: 2018-03-30T23:57:28-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -92,7 +92,7 @@ export class Area
     addModifier(modifier: IModifier): boolean {
         return this._modifiers.add(modifier);
     }
-    removeModifiers(modifier: IModifier): boolean {
+    removeModifier(modifier: IModifier): boolean {
         return this._modifiers.remove(modifier);
     }
     addChild(area: IArea): boolean {

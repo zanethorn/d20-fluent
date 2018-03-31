@@ -1,30 +1,84 @@
 /**
  * @Author: Zane Thorn <zanethorn>
- * @Date:   2018-03-29T20:51:02-04:00
+ * @Date:   2018-03-30T22:51:53-04:00
  * @Project: d20-fluent
  * @Filename: Score.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T18:25:17-04:00
+ * @Last modified time: 2018-03-30T23:41:14-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
+import { IHasScores } from "./IHasScores";
 import { IScore } from "./IScore";
-import { IModifier, combineModifiers } from "./IModifier";
-import { IHasScores } from './IHasScores';
-import { roll } from "../../DieRoll";
-import { Die } from "../../Die";
+import { IModifier } from "./IModifier";
 import { CheckResult } from "./CheckResult";
+import { roll } from "../../DieRoll";
 import { ICheckResult } from "./ICheckResult";
-import { Constructor } from "../../Constructor";
+import { Die } from "../../Die";
+import { StackedModifier } from "./StackedModifier";
+import { ArrayList } from "../../collections";
+
+function combinePenalties(mod:IModifier, penalties: any):void {
+    if (penalties[mod.type.id] === undefined) {
+        penalties[mod.type.id] = mod;
+    }
+    else if (mod.type.canStack) {
+        penalties[mod.type.id] = new StackedModifier(penalties[mod.type.id], mod);
+    }
+    else if (penalties[mod.type.id] > mod.value){
+        penalties[mod.type.id] = mod;
+    }
+}
+
+function combineBonuses(mod:IModifier, bonuses: any):void {
+    if (bonuses[mod.type.id] === undefined) {
+        bonuses[mod.type.id] = mod;
+    }
+    else if (mod.type.canStack) {
+        bonuses[mod.type.id] = new StackedModifier(bonuses[mod.type.id], mod);
+    }
+    else if (bonuses[mod.type.id] < mod.value){
+        bonuses[mod.type.id] = mod;
+    }
+}
+
+export function *combineModifiers(mods: IterableIterator<IModifier>): IterableIterator<IModifier> {
+    let bonuses: any = {};
+    let penalties: any = {};
+
+    for (let m of mods) {
+        if (m.value < 0){
+            combinePenalties(m, penalties);
+        }
+        else {
+            combineBonuses(m, bonuses);
+        }
+    }
+
+    for (let m of bonuses){
+        yield m;
+    }
+
+    for (let m of penalties) {
+        yield m;
+    }
+}
 
 export abstract class Score
     implements IScore
 {
+    private static _typeNames: ArrayList<string> = new ArrayList<string>();
+
     description: string;
     value: number;
 
-    constructor(public readonly id:string, public readonly parent: IHasScores) { }
+    constructor(
+        public readonly id:string,
+        public readonly parent: IHasScores
+    ) {
+        Score._typeNames.add(id);
+    }
 
     get modifiers(): IterableIterator<IModifier> {
         let self = this;
@@ -63,26 +117,7 @@ export abstract class Score
         return new CheckResult(this, roll(1,Die.d20)(), dc, mods);
     }
 
-}
-
-
-export function HasScoresMixin<TBase extends Constructor>(Base: TBase) {
-    return class extends Base
-    {
-        get scores(): IterableIterator<IScore> {
-            let self = <any>this;
-            function *_scores() {
-                for (let k in self) {
-                    let v = self[k];
-                    if (v.id !== undefined) {
-                        yield v;
-                    }
-                }
-            }
-            return _scores();
-        }
-
-        getScore(id:string): IScore;
-
-    };
+    static get typeNames(): IterableIterator<string> {
+        return Score._typeNames[Symbol.iterator]();
+    }
 }

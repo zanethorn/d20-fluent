@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Size.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T19:51:10-04:00
+ * @Last modified time: 2018-03-30T23:54:59-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -73,7 +73,7 @@ export function HasSizeMixin<TBase extends Constructor<IHasScores>>(Base: TBase)
         }
 
         set size(value:ISize) {
-            (<IHasModifiers><any>this).removeModifiers(this._size.sizeModifier);
+            (<IHasModifiers><any>this).removeModifier(this._size.sizeModifier);
             this._size = value;
             (<IHasModifiers><any>this).addModifier(this._size.sizeModifier);
         }

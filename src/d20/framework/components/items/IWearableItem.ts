@@ -4,17 +4,17 @@
  * @Project: d20-fluent
  * @Filename: IWearableItem.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T10:06:24-04:00
+ * @Last modified time: 2018-03-30T23:11:56-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
 
 import { IItem } from "./IItem";
 import { IHasType } from "../../IHasType";
-import { WearableLocation } from "./WearableLocation";
+import { ItemLocation } from "./ItemLocation";
 
 export interface IWearableItem
-    extends IItem, IHasType<WearableLocation>
+    extends IItem, IHasType<ItemLocation>
 {
 
 }
