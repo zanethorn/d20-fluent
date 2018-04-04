@@ -20,7 +20,7 @@ export class ThingBase
 {
     area: IArea;
 
-    constructor(id: string) {
-        super(id);
-    }
+    // constructor(id: string) {
+    //     super(id);
+    // }
 }

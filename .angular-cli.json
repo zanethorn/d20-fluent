@@ -17,7 +17,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "",
       "styles": [
         "styles.css"
       ],
@@ -27,7 +27,20 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
-    }
+  },
+  {
+      "root": "src/d20",
+      "outDir": "bin/d20",
+      "assets": [
+      ],
+      "main": "main.ts",
+      "tsconfig": "tsconfig.d20.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "d20",
+      "styles": [
+      ],
+      "scripts": []
+  }
   ],
   "e2e": {
     "protractor": {

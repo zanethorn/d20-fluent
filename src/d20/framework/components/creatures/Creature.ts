@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Creature.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-31T00:11:32-04:00
+ * @Last modified time: 2018-04-03T16:41:38-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -89,7 +89,7 @@ export class Creature
                                                         HasSizeMixin (
                                                             HasSkillsMixin (
                                                                 HasScoresMixin (
-                                                                    HasModifiersMixin(
+                                                                    HasModifiersMixin (
                                                                         ThingBase
                                                                     )
                                                                 )
@@ -112,6 +112,12 @@ export class Creature
 {
     private _type: ICreatureType = CreatureType.humanoid;
     private _subtypes: ArrayList<ICreatureSubtype> = new ArrayList<ICreatureSubtype>();
+
+    constructor(id:string){
+        super(id);
+
+        return this;
+    }
 
     get type(): ICreatureType {
         return this._type;
@@ -160,7 +166,7 @@ export class Creature
     }
 
     race: string;
-    id: string;
+    //id: string;
     description: string;
     name: string;
     //area: IArea;

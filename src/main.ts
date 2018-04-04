@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: main.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T18:23:47-04:00
+ * @Last modified time: 2018-04-03T20:04:40-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -13,7 +13,8 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
 import * as url from "url";
-import d20 from './d20'
+import d20 from './d20';
+
 
 let mainWindow: Electron.BrowserWindow;
 
@@ -69,3 +70,4 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+import './rulesets/core';

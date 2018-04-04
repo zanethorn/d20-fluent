@@ -3,7 +3,7 @@
 # @Project: d20-fluent
 # @Filename: Makefile
 # @Last modified by:   zanethorn
-# @Last modified time: 2018-03-28T10:22:10-04:00
+# @Last modified time: 2018-04-03T13:44:14-04:00
 # @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
 # @Copyright: 2018 Zane Thorn
 
@@ -11,12 +11,13 @@
 clean:
 	@rm -rf ./bin
 
-copy-assets:
-	@mkdir -p ./bin/app/assets
-	@cp -r ./src/app/assets/* ./bin/app/assets
-	@cp -r ./src/app/index.html ./bin/app
+build-d20:
+	@tsc
 
-build: copy-assets
+build-app:
+	@ng build
+
+build: build-d20 build-app
 	@tsc
 
 run:

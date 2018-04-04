@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: AbilityScore.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T22:25:14-04:00
+ * @Last modified time: 2018-04-03T17:03:11-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -19,6 +19,8 @@ import { ModifierType } from '../ModifierType';
 import { IScore } from '../IScore';
 import { IHasAbilityScores } from '.';
 import { Constructor } from '../../../Constructor';
+import { roll } from '../../../DieRoll';
+import { Die } from '../../../Die';
 
 
 class AbilityModifier
@@ -57,7 +59,7 @@ abstract class AbilityScore
         id:string, parent: IHasScores
     ) {
         super(id, parent);
-
+        this.value = roll(3, Die.d6)();
     }
 }
 

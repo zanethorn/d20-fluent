@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../bin/d20",
+    "module": "commonjs",
+    "baseUrl": "../",
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "dist",
+    "app-builds",
+    "node_modules"
+  ]
+}

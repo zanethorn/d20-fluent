@@ -1,0 +1,15 @@
+<div class="score">
+    <div class="score-name">{{ score.id }}</div>
+    <div class="score-value">{{ score.modifiedValue }}</div>
+
+    <div class="modifiers">
+        <span class="modifier-title">Modifiers</span>
+        <ul>
+            <li *ngFor="let modifier of score.modifiers">
+                {{ modifier.id }}
+            </li>
+        </ul>
+    </div>
+
+    <span class="clearfix"></span>
+</div>

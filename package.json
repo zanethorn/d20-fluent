@@ -4,10 +4,11 @@
   "description": "A fluent language engine for d20 gaming.",
   "main": "bin/index.js",
   "scripts": {
-    "build": "tsc & cp -r ./src/assets/{,**}/* ./bin/assets",
+    "build": "tsc",
     "test": "mocha -r ts-node/register src/**/*.tests.ts",
     "start": "electron ."
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zanethorn/d20-fluent.git"

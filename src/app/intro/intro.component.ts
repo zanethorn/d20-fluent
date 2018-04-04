@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: intro.component.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-28T13:31:39-04:00
+ * @Last modified time: 2018-04-03T11:09:19-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-intro',
-  templateUrl: './app/assets/html/intro.component.html',
+  templateUrl: './intro.component.html',
   styleUrls: []
 })
 export class IntroComponent implements OnInit {

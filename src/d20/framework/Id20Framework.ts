@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Id20Framework.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T10:00:42-04:00
+ * @Last modified time: 2018-04-03T20:19:23-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -16,20 +16,18 @@ import {
 } from './components'
 import { RulebookBinder } from './components/Rulebook';
 import { RuleBinder } from './components/Rule';
+import { ICreature } from './components/creatures';
 
 export interface Id20Framework
     extends IComponent
 {
-
     readonly currentComponent: IComponent;
 
-    readonly d20: Id20Framework;
-
-    readonly rulebooks: IRulebook[];
     readonly rulebook: RulebookBinder;
     readonly rule: RuleBinder;
 
-    include(path:string): Promise<any>;
+    readonly include: (path:string) => Promise<any>;
+    readonly creature: (type:string, map?: any) => ICreature;
 
     initialize(): void;
 }

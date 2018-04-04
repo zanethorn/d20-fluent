@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: ICreature.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T20:46:10-04:00
+ * @Last modified time: 2018-04-03T14:07:48-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */

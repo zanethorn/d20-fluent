@@ -4,7 +4,7 @@
  * @Project: d20-fluent
  * @Filename: Score.ts
  * @Last modified by:   zanethorn
- * @Last modified time: 2018-03-30T23:41:14-04:00
+ * @Last modified time: 2018-04-03T18:04:14-04:00
  * @License: https://raw.githubusercontent.com/zanethorn/d20-fluent/master/LICENSE
  * @Copyright: 2018 Zane Thorn
  */
@@ -18,6 +18,7 @@ import { ICheckResult } from "./ICheckResult";
 import { Die } from "../../Die";
 import { StackedModifier } from "./StackedModifier";
 import { ArrayList } from "../../collections";
+import { ComponentBase } from "../ComponentBase";
 
 function combinePenalties(mod:IModifier, penalties: any):void {
     if (penalties[mod.type.id] === undefined) {
@@ -56,27 +57,28 @@ export function *combineModifiers(mods: IterableIterator<IModifier>): IterableIt
         }
     }
 
-    for (let m of bonuses){
-        yield m;
+    for (let p in bonuses){
+        yield bonuses[p];
     }
 
-    for (let m of penalties) {
-        yield m;
+    for (let p in penalties) {
+        yield penalties[p];
     }
 }
 
 export abstract class Score
+    extends ComponentBase
     implements IScore
 {
     private static _typeNames: ArrayList<string> = new ArrayList<string>();
 
-    description: string;
-    value: number;
+    value: number = 0;
 
     constructor(
-        public readonly id:string,
+        id:string,
         public readonly parent: IHasScores
     ) {
+        super(id);
         Score._typeNames.add(id);
     }
 

@@ -1,0 +1,19 @@
+<h2>{{ character.name }}</h2>
+<div>
+    {{ character.race }}
+</div>
+<div >
+    <h3>Ability Scores</h3>
+    <score [score]="character.strength"></score>
+    <score [score]="character.dexterity"></score>
+    <score [score]="character.constitution"></score>
+    <score [score]="character.intelligence"></score>
+    <score [score]="character.wisdom"></score>
+    <score [score]="character.charisma"></score>
+</div>
+<div >
+    <h3>Saving Throws</h3>
+    <score [score]="character.fortitude"></score>
+    <score [score]="character.reflex"></score>
+    <score [score]="character.will"></score>
+</div>
